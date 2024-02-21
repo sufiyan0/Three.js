@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+// import obritControls
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -11,16 +13,17 @@ const sizes = {
     height: 1000
 }
 
-// create scene 
+// Scene 
+
 const scene = new THREE.Scene()
 
-// create group and add it to the scene
+// group
 const group = new THREE.Group()
 scene.add(group)
 
 
 
-// create cube and add it to the scene
+// cube 
 const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1,1,1),
     new THREE.MeshBasicMaterial({color:'yellow'})
@@ -28,28 +31,30 @@ const cube = new THREE.Mesh(
 
 group.add(cube)
 
-// create Camera and add it to the scene 
+// camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width/sizes.height)
 camera.position.z = 3
 scene.add(camera)
 
-// create renderer with webglRenderer
+// controls with orbitControls to control the object movement with mouse
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
+
+
 const renderer = new THREE.WebGLRenderer({
     canvas
 })
 
 renderer.setSize(sizes.width, sizes.height)
 renderer.render(scene, camera)
-// recursive function 
+
 const tick = () => {
 
-    // animation logic here 
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
+   
 
-    // final rendering of scene
+    controls.update()
+
     renderer.render(scene, camera)
-    // call tick again on the next frame
     window.requestAnimationFrame(tick)
 
 

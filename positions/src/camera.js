@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -11,16 +10,37 @@ const sizes = {
     height: 1000
 }
 
-// create scene 
+
+const cursor = {
+    x: 0,
+    y: 0
+}
+
+// canvas.addEventListener('mousemove', (e) => {
+//     cursor.x = e.clientX / sizes.width -0.5
+//     cursor.y =  -(e.clientY / sizes.height -0.5)
+//     console.log(e.clientX, e.clientY)
+// })
+window.addEventListener('mousemove', (e) => {
+    cursor.x = e.clientX / sizes.width -0.5
+    cursor.y =  -(e.clientY / sizes.height -0.5)
+    console.log(e.clientX, e.clientY)
+})
+
+
+
+
+
+
 const scene = new THREE.Scene()
 
-// create group and add it to the scene
+
 const group = new THREE.Group()
 scene.add(group)
 
 
 
-// create cube and add it to the scene
+
 const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1,1,1),
     new THREE.MeshBasicMaterial({color:'yellow'})
@@ -28,28 +48,32 @@ const cube = new THREE.Mesh(
 
 group.add(cube)
 
-// create Camera and add it to the scene 
+
 const camera = new THREE.PerspectiveCamera(75, sizes.width/sizes.height)
 camera.position.z = 3
 scene.add(camera)
 
-// create renderer with webglRenderer
+
+
+
 const renderer = new THREE.WebGLRenderer({
     canvas
 })
 
 renderer.setSize(sizes.width, sizes.height)
 renderer.render(scene, camera)
-// recursive function 
+
+
 const tick = () => {
 
-    // animation logic here 
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
+    camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3
+    camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3
+    camera.position.y = cursor.y * 13
+    camera.lookAt(new THREE.Vector3())
+    // camera.lookAt(cube.position)
 
-    // final rendering of scene
+
     renderer.render(scene, camera)
-    // call tick again on the next frame
     window.requestAnimationFrame(tick)
 
 
