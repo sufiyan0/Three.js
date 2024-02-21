@@ -7,11 +7,41 @@ const canvas = document.querySelector('canvas.webgl')
  * Sizes
  */
 const sizes = {
-    width: 800,
-    height: 600
+    width: 1600,
+    height: 1000
 }
 
 
+// const scene = new THREE.Scene()
+
+
+// const group = new THREE.Group()
+// scene.add(group)
+
+
+
+
+// const cube = new THREE.Mesh(
+//     new THREE.BoxGeometry(1,1,1),
+//     new THREE.MeshBasicMaterial({color:'green'})
+// )
+
+// group.add(cube)
+
+// cube.position.x = 1
+// cube.position.y = -1
+
+// const camera = new THREE.PerspectiveCamera(75, sizes.width/sizes.height)
+// camera.position.z = 3
+// scene.add(camera)
+
+
+// const renderer = new THREE.WebGLRenderer({
+//     canvas
+// })
+
+// renderer.setSize(sizes.width, sizes.height)
+// renderer.render(scene, camera)
 // Scene
 const scene = new THREE.Scene()
 
@@ -101,11 +131,18 @@ renderer.setSize(sizes.width, sizes.height)
 
 const tick = () => {
     
+    // group.rotation.x += 0.005
+    // group.rotation.y += 0.005
+    
     cube.rotation.x += 0.01
     cube.rotation.y += 0.01
+    // camera.position.x += 0.001
+    // camera.position.y += 0.001
 
-    cube1.rotation.x += 0.01
-    cube1.rotation.y += 0.01
+
+
+    cube1.rotation.x = 1
+    cube1.rotation.y = 1
     
     cube2.rotation.x += 0.01
     cube2.rotation.y += 0.01
